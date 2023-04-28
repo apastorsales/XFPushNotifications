@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19127535656",
+    "project_id": "pushnotificationsxf",
+    "storage_bucket": "pushnotificationsxf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19127535656:android:02364a3f95ce49adc34d1d",
+        "android_client_info": {
+          "package_name": "com.xfaicom.xfpushnotifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19127535656-qkbmqtajdc542t5080fk7jddb5m2t66b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxYVMENGhGDmq_GSwbKd2ys587fHh_XWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19127535656-qkbmqtajdc542t5080fk7jddb5m2t66b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
