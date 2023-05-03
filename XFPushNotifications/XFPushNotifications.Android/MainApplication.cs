@@ -16,8 +16,8 @@ namespace XFPushNotifications.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-
-            //Set the default notification channel for your app when running Android Oreo
+            
+            //Set the default notification channel for your app when running Android Oreo or greater
             if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
                 //Change for your default notification channel id here
@@ -28,8 +28,8 @@ namespace XFPushNotifications.Droid
 
                 FirebasePushNotificationManager.DefaultNotificationChannelImportance = NotificationImportance.Max;
             }
-
-            //If debug you should reset the token each time.
+            
+            //If debug you should reset the token each time. If not, it initialize's without refreshing the token
 #if DEBUG
             FirebasePushNotificationManager.Initialize(this, true);
 #else
@@ -40,6 +40,7 @@ namespace XFPushNotifications.Droid
             CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
             {
 
+                
 
             };
         }

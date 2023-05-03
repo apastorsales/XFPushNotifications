@@ -1,5 +1,6 @@
 ﻿using Plugin.FirebasePushNotification;
 using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,13 +13,41 @@ namespace XFPushNotifications
             InitializeComponent();
 
             MainPage = new MainPage();
+            Trace.WriteLine("Hola soy el programa y ahora mismo estoy antes de la linea de token");
+            Trace.WriteLine("Token: " + CrossFirebasePushNotification.Current.Token);
 
-            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
-        }
+            //Se ejecuta en el caso de que el token se refresque ( comunmente al ejecutar en debug )
+            CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
+            {
+                System.Diagnostics.Debug.WriteLine($"Token: {p.Token}");
+            };
 
-        private void Current_OnTokenRefresh(object source, FirebasePushNotificationTokenEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine($"Token: {e.Token}");
+            //Se ejecuta al recibir una notificacion ( y por lo que he estado comprobando, cuando se recibe la notificación mientras se usa la app ).
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            {
+                Trace.WriteLine("Received");
+                System.Diagnostics.Debug.WriteLine("Received");
+                foreach (var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                    Trace.WriteLine($"{data.Key} : {data.Value}");
+                }
+            };
+
+            //Se ejecuta cuandose abre la notificación mostrada en la bandeja del sistema
+            CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Opened");
+                foreach ( var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+                if (!string.IsNullOrEmpty(p.Identifier))
+                {
+                    System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+            };
         }
 
         protected override void OnStart()
